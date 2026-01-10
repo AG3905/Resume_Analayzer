@@ -5,7 +5,7 @@ from typing import Dict, Any
 import time
 
 
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyDtZuVHstDnUCyS5V4H-re1h1j_eKD1nmM')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'You Api Key')
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
