@@ -5,7 +5,9 @@ class Config:
     """Application configuration"""
 
     # Flask config
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
+        raise ValueError("SECRET_KEY environment variable must be set")
 
     # File upload config
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
@@ -14,6 +16,9 @@ class Config:
 
     # AI API configuration
     GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+    if not GEMINI_API_KEY:
+        raise ValueError("GEMINI_API_KEY environment variable must be set")
+    
     HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
     OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
