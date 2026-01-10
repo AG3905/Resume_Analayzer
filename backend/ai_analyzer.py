@@ -4,8 +4,8 @@ import os
 from typing import Dict, Any
 import time
 
-# Free API configurations - using Google Gemini API (free tier)
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'your-gemini-api-key-here')
+
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyDtZuVHstDnUCyS5V4H-re1h1j_eKD1nmM')
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
@@ -13,20 +13,19 @@ def analyze_resume(resume_text: str, job_description: str) -> Dict[str, Any]:
     Analyze resume against job description using AI
     """
     try:
-        # Construct the analysis prompt
+        
         prompt = create_analysis_prompt(resume_text, job_description)
 
-        # Call Gemini API for analysis
+        
         analysis_result = call_gemini_api(prompt)
 
-        # Parse and structure the result
+        
         structured_result = parse_analysis_result(analysis_result)
 
         return structured_result
 
     except Exception as e:
         print(f"AI Analysis error: {str(e)}")
-        # Return fallback analysis
         return create_fallback_analysis(resume_text, job_description)
 
 def create_analysis_prompt(resume_text: str, job_description: str) -> str:
@@ -136,10 +135,8 @@ def parse_analysis_result(api_response: str) -> Dict[str, Any]:
     """Parse and validate the AI response"""
 
     try:
-        # Extract JSON from response (in case there's extra text)
         response_text = api_response.strip()
 
-        # Find JSON content
         start_idx = response_text.find('{')
         end_idx = response_text.rfind('}') + 1
 
@@ -147,7 +144,6 @@ def parse_analysis_result(api_response: str) -> Dict[str, Any]:
             json_text = response_text[start_idx:end_idx]
             result = json.loads(json_text)
 
-            # Validate required fields
             required_fields = ['match_score', 'matched_skills', 'missing_skills', 'suggestions']
             for field in required_fields:
                 if field not in result:

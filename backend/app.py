@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import json
+import time
 from werkzeug.utils import secure_filename
 from ai_analyzer import analyze_resume
 from resume_parser import extract_text_from_file
@@ -11,7 +12,6 @@ import traceback
 app = Flask(__name__)
 CORS(app)
 
-# Configuration
 UPLOAD_FOLDER = 'uploads'
 MAX_FILE_SIZE = 16 * 1024 * 1024  # 16MB max file size
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
@@ -19,7 +19,6 @@ ALLOWED_EXTENSIONS = {'pdf', 'docx'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 
-# Ensure upload directory exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
@@ -40,7 +39,6 @@ def health_check():
 @app.route('/analyze', methods=['POST'])
 def analyze_resume_endpoint():
     try:
-        # Check if file is present
         if 'resume' not in request.files:
             return jsonify({"error": "No resume file provided"}), 400
 
@@ -56,22 +54,20 @@ def analyze_resume_endpoint():
         if not job_description.strip():
             return jsonify({"error": "Job description is required"}), 400
 
-        # Save uploaded file
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
 
         try:
-            # Extract text from resume
             resume_text = extract_text_from_file(file_path)
 
             if not resume_text.strip():
                 return jsonify({"error": "Could not extract text from the resume. Please ensure the file is not corrupted."}), 400
 
-            # Analyze resume with AI
             analysis_result = analyze_resume(resume_text, job_description)
-
-            # Clean up uploaded file
+            
+            time.sleep(3)
+            
             os.remove(file_path)
 
             return jsonify({
@@ -81,7 +77,6 @@ def analyze_resume_endpoint():
             })
 
         except Exception as analysis_error:
-            # Clean up file in case of error
             if os.path.exists(file_path):
                 os.remove(file_path)
 
@@ -104,7 +99,8 @@ def export_report():
         if not report_data:
             return jsonify({"error": "No analysis data provided"}), 400
 
-        # Generate PDF report
+        time.sleep(2)
+        
         pdf_path = generate_pdf_report(report_data)
 
         return send_from_directory(
