@@ -6,7 +6,7 @@ class Config:
 
     # Flask config
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    if not SECRET_KEY:
+    if not SECRET_KEY or SECRET_KEY.strip() == '':
         raise ValueError("SECRET_KEY environment variable must be set")
 
     # File upload config
@@ -16,7 +16,7 @@ class Config:
 
     # AI API configuration
     GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
-    if not GEMINI_API_KEY:
+    if not GEMINI_API_KEY or GEMINI_API_KEY.strip() == '':
         raise ValueError("GEMINI_API_KEY environment variable must be set")
     
     HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
