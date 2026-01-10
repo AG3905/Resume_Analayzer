@@ -1,13 +1,18 @@
 import os
 from datetime import timedelta
 
+def _validate_env_var(var_name):
+    """Validate that an environment variable is set and not empty"""
+    value = os.environ.get(var_name)
+    if not value or value.strip() == '':
+        raise ValueError(f"{var_name} environment variable must be set")
+    return value
+
 class Config:
     """Application configuration"""
 
     # Flask config
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    if not SECRET_KEY or SECRET_KEY.strip() == '':
-        raise ValueError("SECRET_KEY environment variable must be set")
+    SECRET_KEY = _validate_env_var('SECRET_KEY')
 
     # File upload config
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
@@ -15,9 +20,7 @@ class Config:
     ALLOWED_EXTENSIONS = {'pdf', 'docx'}
 
     # AI API configuration
-    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
-    if not GEMINI_API_KEY or GEMINI_API_KEY.strip() == '':
-        raise ValueError("GEMINI_API_KEY environment variable must be set")
+    GEMINI_API_KEY = _validate_env_var('GEMINI_API_KEY')
     
     HUGGINGFACE_TOKEN = os.environ.get('HUGGINGFACE_TOKEN')
     OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
