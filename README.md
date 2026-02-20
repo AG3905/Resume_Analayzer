@@ -1,34 +1,34 @@
-# 🤖 AI-Powered Resume Analyzer
+# AI-Powered Resume Analyzer
 
 A comprehensive web application that analyzes resumes against job descriptions using advanced AI technology. Built with React frontend and Flask backend, featuring real-time analysis, ATS compatibility checking, and detailed reporting.
 
 ## ✨ Features
 
-### 🎯 Core Analysis
+## Core Analysis
 - **AI-Powered Matching**: Advanced resume analysis using Google Gemini API
 - **Match Score**: Percentage-based compatibility score (0-100%)
 - **Skills Gap Analysis**: Identifies matched and missing skills
 - **Keyword Optimization**: Analyzes keyword alignment with job requirements
 - **Experience Matching**: Compares candidate experience with job requirements
 
-### 🛡️ ATS Compatibility
+## ATS Compatibility
 - **Format Checking**: Identifies ATS-unfriendly elements (tables, images, complex formatting)
 - **Structure Analysis**: Detects missing resume sections
 - **Optimization Tips**: Provides specific recommendations for ATS improvement
 
-### 📊 Visual Dashboard
+## Visual Dashboard
 - **Interactive Charts**: Skills breakdown with Chart.js visualizations
 - **Progress Indicators**: Visual representation of match scores
 - **Categorized Results**: Organized display of analysis results
 - **Responsive Design**: Works perfectly on desktop and mobile devices
 
-### 📋 Detailed Reporting
+##  Detailed Reporting
 - **Comprehensive Analysis**: Strengths, weaknesses, and improvement areas
 - **Actionable Suggestions**: Step-by-step improvement recommendations
 - **PDF Export**: Download detailed analysis reports
 - **Priority Levels**: High, medium, and low priority suggestions
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+ with pip
@@ -118,7 +118,7 @@ ai-resume-analyzer/
 └── README.md               # This file
 ```
 
-## 🎨 Features in Detail
+## Features in Detail
 
 ### File Upload Support
 - **PDF files**: Extracted using PyPDF2
@@ -143,7 +143,7 @@ ai-resume-analyzer/
 - **Downloadable**: Save results for future reference
 - **Formatted**: Clean, readable layout with charts and metrics
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Backend Endpoints
 - `GET /` - API information and health check
@@ -155,7 +155,7 @@ ai-resume-analyzer/
 - `/` - Main application (file upload + dashboard)
 - All routing handled by React Router
 
-## 🛠️ Development
+## Development
 
 ### Backend Development
 ```bash
@@ -195,7 +195,7 @@ npm test
 3. **UI Components**: Create in `src/components/`
 4. **Styling**: Update `src/styles/App.css`
 
-## 🚀 Deployment
+##  Deployment
 
 ### Production Deployment
 
@@ -235,7 +235,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -271,7 +271,7 @@ CMD ["npm", "start"]
    - Use React.memo for expensive components
    - Optimize chart rendering
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -289,7 +289,7 @@ CMD ["npm", "start"]
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Google Gemini API** for AI-powered analysis
 - **React** and **Flask** for the robust framework foundation  
@@ -297,7 +297,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **PyPDF2** and **python-docx** for document processing
 - **Open source community** for inspiration and tools
 
-## 🆘 Support
+## Support
 
 If you encounter any issues or have questions:
 
