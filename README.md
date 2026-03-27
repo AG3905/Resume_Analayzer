@@ -49,9 +49,13 @@ A comprehensive web application that analyzes resumes against job descriptions u
    pip install -r requirements.txt
 
    # Set up environment variables
-   export GEMINI_API_KEY="your-gemini-api-key-here"
-   # Or create a .env file with your API key
-
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env and add your API keys
+   # REQUIRED: GEMINI_API_KEY and SECRET_KEY
+   # See Security Best Practices section below for generating a secure SECRET_KEY
+   
    # Run the Flask server
    python app.py
    ```
@@ -70,16 +74,40 @@ A comprehensive web application that analyzes resumes against job descriptions u
 ## 🔧 Configuration
 
 ### Environment Variables
-Create a `.env` file in the backend directory:
+
+⚠️ **Security Note**: Never commit `.env` files to version control!
+
+Create a `.env` file in the backend directory using the provided template:
 
 ```bash
-GEMINI_API_KEY=your-gemini-api-key-here
-FLASK_ENV=development
-SECRET_KEY=your-secret-key-here
+cd backend
+cp .env.example .env
+# Edit .env with your actual values
+```
 
-# Optional: Alternative AI APIs
-HUGGINGFACE_TOKEN=your-hf-token
-OPENAI_API_KEY=your-openai-key
+**Required Environment Variables:**
+- `GEMINI_API_KEY` - Your Google Gemini API key ([Get one here](https://ai.google.dev/))
+- `SECRET_KEY` - A secure random key for Flask session management
+
+**Optional Environment Variables:**
+- `FLASK_ENV` - Set to `development` or `production` (default: `development`)
+- `HUGGINGFACE_TOKEN` - Optional Hugging Face API token
+- `OPENAI_API_KEY` - Optional OpenAI API key
+- `LOG_LEVEL` - Logging level (default: `INFO`)
+- `CORS_ORIGINS` - Comma-separated list of allowed origins (default: `*`)
+
+### Generating a Secure SECRET_KEY
+
+Use Python to generate a secure random key:
+
+```bash
+python -c 'import secrets; print(secrets.token_hex(32))'
+```
+
+Or use openssl:
+
+```bash
+openssl rand -hex 32
 ```
 
 ### API Configuration
@@ -88,6 +116,42 @@ The application uses **Google Gemini API** (free tier) by default. Alternative c
 - **Hugging Face**: Free inference API with rate limits
 - **OpenAI**: Paid API with high accuracy
 - **Local Models**: Use local LLMs for privacy
+
+## 🔒 Security Best Practices
+
+### Environment Variables and Secrets Management
+
+1. **Never commit secrets to version control**
+   - Always use `.env` files for sensitive information
+   - The `.env` file is already included in `.gitignore`
+   - Use the provided `.env.example` as a template
+
+2. **Generate Strong SECRET_KEY**
+   ```bash
+   # Use Python
+   python -c 'import secrets; print(secrets.token_hex(32))'
+   
+   # Or use openssl
+   openssl rand -hex 32
+   ```
+
+3. **API Key Security**
+   - Store API keys only in environment variables or `.env` files
+   - Never hardcode API keys in source code
+   - Rotate API keys regularly
+   - Use separate API keys for development and production
+
+4. **Production Deployment**
+   - Use environment variables provided by your hosting platform
+   - Enable HTTPS/SSL for all production deployments
+   - Set `FLASK_ENV=production` in production
+   - Restrict CORS origins to trusted domains only
+
+5. **Regular Security Audits**
+   - Keep dependencies up to date
+   - Monitor for security vulnerabilities
+   - Review `.gitignore` to ensure no secrets are committed
+   - Use tools like `git-secrets` to prevent accidental commits of sensitive data
 
 ## 📁 Project Structure
 
